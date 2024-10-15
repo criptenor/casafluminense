@@ -1,4 +1,6 @@
 # Extensão da rede cicloviária
+![Texto alternativo](ciclovias.png)
+
 ## Japeri
 
     A cidade de Japeri, das três analisadas tem a menor malha cicloviária contendo apenas    de extensão pela cidade.
