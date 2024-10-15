@@ -1,0 +1,13 @@
+{
+"type": "FeatureCollection",
+"name": "Ciclovia_Nilopolis",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "Plataforma C", "id": "way\/235188629", "type": "Proibido" }, "geometry": { "type": "LineString", "coordinates": [ [ -43.4140899, -22.8103456 ], [ -43.4141906, -22.8104046 ] ] } },
+{ "type": "Feature", "properties": { "name": null, "id": "way\/461442214", "type": "Ciclovia" }, "geometry": { "type": "LineString", "coordinates": [ [ -43.4169019, -22.7958044 ], [ -43.4168794, -22.7958318 ], [ -43.4168781, -22.7958479 ], [ -43.4168915, -22.7958615 ], [ -43.416913, -22.7958677 ], [ -43.4169304, -22.7958603 ], [ -43.4169358, -22.795838 ], [ -43.4169224, -22.7958195 ], [ -43.4169019, -22.7958044 ], [ -43.4168835, -22.7957908 ], [ -43.4165612, -22.7955325 ], [ -43.4165169, -22.7955131 ], [ -43.4164655, -22.7955153 ], [ -43.4164235, -22.7955282 ], [ -43.4163838, -22.7955282 ], [ -43.4163627, -22.7955261 ], [ -43.4163347, -22.7955024 ], [ -43.4161106, -22.7952807 ], [ -43.4160732, -22.7952613 ], [ -43.4160429, -22.7952591 ], [ -43.4159191, -22.7952505 ], [ -43.415842, -22.7952484 ], [ -43.4158094, -22.7952398 ], [ -43.4154825, -22.7947812 ], [ -43.4154334, -22.7947339 ], [ -43.414406, -22.7941462 ], [ -43.412545, -22.7929989 ], [ -43.4121364, -22.7927857 ], [ -43.4115176, -22.7924112 ], [ -43.4108182, -22.7920783 ] ] } },
+{ "type": "Feature", "properties": { "name": "Travessa São Jerônimo", "id": "way\/485592706", "type": "Baixa velocidade" }, "geometry": { "type": "LineString", "coordinates": [ [ -43.418332, -22.8229803 ], [ -43.4188619, -22.8222432 ] ] } },
+{ "type": "Feature", "properties": { "name": "Plataforma C", "id": "way\/919349363", "type": "Proibido" }, "geometry": { "type": "LineString", "coordinates": [ [ -43.4141906, -22.8104046 ], [ -43.4148386, -22.810784 ] ] } },
+{ "type": "Feature", "properties": { "name": "Plataforma C", "id": "way\/919349364", "type": "Proibido" }, "geometry": { "type": "LineString", "coordinates": [ [ -43.4148386, -22.810784 ], [ -43.4148973, -22.8108178 ] ] } },
+{ "type": "Feature", "properties": { "name": "Travessa São Jerônimo", "id": "way\/956966924", "type": "Baixa velocidade" }, "geometry": { "type": "LineString", "coordinates": [ [ -43.4188619, -22.8222432 ], [ -43.4188981, -22.8221894 ] ] } }
+]
+}
