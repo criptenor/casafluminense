@@ -1,0 +1,298 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  #searchContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .container {
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+    height: 70%;
+  }
+  .viewer {
+    width: 100%;
+  height: 100%;
+  overflow: auto;
+  
+  position: relative;
+  
+  }
+  .pdf-list-wrapper {
+    display: flex
+;
+  flex-direction: column;
+  width: 45%;
+  border: 1px solid #1b9bee;
+  border-radius: 8px;
+  margin: 20px;
+  padding: 10px;
+  }
+  #sortDateButton, #sortQuantityButton{
+    text-decoration: none;
+  }
+  .sortButtons button{
+    text-decoration: none;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding: 5px;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  font-size: 17px;
+  border-radius: 500px;
+  overflow: hidden;
+  background: #66ff66;
+  color: ghostwhite;
+  }
+  .pdf-list-wrapper button span{
+    font-size: 25px;
+  }
+  .sortButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .pdf-list {
+    height: 100%;
+    padding: 10px;
+    overflow-y: auto;
+    list-style-type: none;
+    border: 1px solid #ccc;
+  }
+  .pdf-list li {
+    cursor: pointer;
+    margin: 5px 0;
+  }
+  .card {
+    width: 100%;
+    margin: 5px 0;
+    background-color: #f2f3f7;
+    border-radius: 0.75em;
+    cursor: pointer;
+    transition: ease 0.2s;
+    border: 1.5px solid #f2f3f7;
+  }
+
+  .card:hover {
+    background-color: #d3ddf1;
+    border: 1.5px solid #1677ff;
+  }
+
+  .card-container {
+    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    gap: 0.75em;
+  }
+
+  .status-ind {
+    width: 0.625em;
+    height: 0.625em;
+    background-color: #ff0000;
+    margin: 0.375em 0;
+    border-radius: 0.5em;
+  }
+
+  .text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+    color: #333;
+  }
+
+  .time {
+    font-size: 0.875em;
+    color: #777;
+  }
+
+  .text-link {
+    font-weight: 500;
+    text-decoration: none;
+    color: black;
+  }
+
+  .button-wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    align-items: center;
+  }
+
+  .secondary-cta {
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    font-weight: 400;
+    color: #666;
+    cursor: pointer;
+  }
+
+  .primary-cta {
+    font-size: 15px;
+    background-color: transparent;
+    font-weight: 600;
+    color: #1677ff;
+    border: none;
+    border-radius: 1.5em;
+    cursor: pointer;
+  }
+
+  button:hover {
+    text-decoration: underline;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
+  /* From Uiverse.io by satyamchaudharydev */ 
+  /* this is a recreation of twitter search in css */
+  .form {
+    --input-text-color: black;
+    --input-bg-color: #c9c7f0;
+    --focus-input-bg-color: transparent;
+    --text-color: black;
+    --active-color: #1b9bee;
+    --width-of-input: 300px;
+    --inline-padding-of-input: 1.2em;
+    --gap: 0.9rem;
+  }
+
+  .form {
+    font-size: 0.9rem;
+  display: flex
+;
+  gap: 0.5rem;
+  align-items: center;
+  width: 70%;
+  position: relative;
+  isolation: isolate;
+  margin: 30px;
+  }
+
+  .fancy-bg {
+    position: absolute;
+    width: 100%;
+    inset: 0;
+    background: var(--input-bg-color);
+    border-radius: 30px;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
+
+  label {
+    width: 100%;
+    padding: 0.8em;
+    height: 40px;
+    padding-inline: var(--inline-padding-of-input);
+    display: flex;
+    align-items: center;
+  }
+
+  .search,.close-btn {
+    position: absolute;
+  }
+
+  .search {
+    fill: var(--text-color);
+    left: var(--inline-padding-of-input);
+  }
+
+  svg {
+    width: 17px;
+    display: block;
+  }
+
+  .close-btn {
+    border: none;
+    right: var(--inline-padding-of-input);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    padding: 0.1em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--active-color);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .input {
+    color: var(--input-text-color);
+    width: 100%;
+    margin-inline: min(2em,calc(var(--inline-padding-of-input) + var(--gap)));
+    background: none;
+    border: none;
+  }
+
+  .input:focus {
+    outline: none;
+  }
+
+  .input::placeholder {
+    color: var(--text-color)
+  }
+
+  .input:focus ~ .fancy-bg {
+    border: 1px solid var(--active-color);
+    background: var(--focus-input-bg-color);
+  }
+
+  .input:focus ~ .search {
+    fill: var(--active-color);
+  }
+
+  .input:valid ~ .close-btn {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+    -webkit-transition-delay: 9999s;
+  }
+
+  .navigation button{
+    text-decoration: none;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding: 5px;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  font-size: 17px;
+  border-radius: 500px;
+  overflow: hidden;
+  background: #66ff66;
+  color: ghostwhite;
+  }
