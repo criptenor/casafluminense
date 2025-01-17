@@ -25,6 +25,8 @@ body {
   overflow: auto;
   
   position: relative;
+  border: 1px solid #1b9bee;
+  border-radius: 8px;
   
   }
   .pdf-list-wrapper {
@@ -36,6 +38,20 @@ body {
   border-radius: 8px;
   margin: 20px;
   padding: 10px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .pdf-list li {
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
   }
   #sortDateButton, #sortQuantityButton{
     text-decoration: none;

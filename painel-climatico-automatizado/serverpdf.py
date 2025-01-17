@@ -62,7 +62,8 @@ def encontrar_pdfs_correspondentes(termo_busca):
                                 "nome_pdf": nome_pdf,
                                 "quantidade_correspondencias": count,
                                 "timestamp": timestamp,
-                                "data": data_formatada
+                                "data": data_formatada,
+                                "termo":termo_busca
                             })
             except Exception as e:
                 print(f"Erro ao ler o arquivo {arquivo_txt}: {e}")
