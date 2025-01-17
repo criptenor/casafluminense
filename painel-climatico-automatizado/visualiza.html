@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pesquisa no boletim Oficial</title>
+  <title>Pesquisa No Diário Oficial da Região metropolitana do rio de janeiro </title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <style>
     body {
@@ -21,14 +21,6 @@
       width: 100%;
       margin-bottom: 20px;
     }
-    input {
-      padding: 10px;
-      width: 300px;
-      margin-right: 10px;
-    }
-    button {
-      padding: 10px;
-    }
     .container {
       display: flex;
       width: 95%;
@@ -37,15 +29,22 @@
     }
     .viewer {
       width: 100%;
-      height: 100%;
-      overflow: auto;
-      border: 1px solid #ccc;
-      position: relative;
+    height: 100%;
+    overflow: auto;
+    border: 1px solid #1b9bee;
+    position: relative;
+    margin: 20px;
+    border-radius: 8px;
     }
     .pdf-list-wrapper {
-      display: flex;
-      flex-direction: column;
-      width: 45%;
+      display: flex
+;
+    flex-direction: column;
+    width: 45%;
+    border: 1px solid #1b9bee;
+    border-radius: 8px;
+    margin: 20px;
+    padding: 10px;
     }
     .sortButtons {
       display: flex;
@@ -70,8 +69,7 @@
       border-radius: 0.75em;
       cursor: pointer;
       transition: ease 0.2s;
-      box-shadow: 1em 1em 1em #d8dae0b1, -0.75em -0.75em 1em #ffffff;
-      border: 1.5px solid #ff0000;
+      border: 1.5px solid #f2f3f7;
     }
 
     .card:hover {
@@ -147,14 +145,143 @@
       flex-direction: column;
       gap: 0.5em;
     }
+
+    /* From Uiverse.io by satyamchaudharydev */ 
+    /* this is a recreation of twitter search in css */
+    .form {
+      --input-text-color: black;
+      --input-bg-color: #c9c7f0;
+      --focus-input-bg-color: transparent;
+      --text-color: black;
+      --active-color: #1b9bee;
+      --width-of-input: 300px;
+      --inline-padding-of-input: 1.2em;
+      --gap: 0.9rem;
+    }
+
+    .form {
+      font-size: 0.9rem;
+    display: flex
+;
+    gap: 0.5rem;
+    align-items: center;
+    width: 70%;
+    position: relative;
+    isolation: isolate;
+    margin: 30px;
+    }
+
+    .fancy-bg {
+      position: absolute;
+      width: 100%;
+      inset: 0;
+      background: var(--input-bg-color);
+      border-radius: 30px;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
+
+    label {
+      width: 100%;
+      padding: 0.8em;
+      height: 40px;
+      padding-inline: var(--inline-padding-of-input);
+      display: flex;
+      align-items: center;
+    }
+
+    .search,.close-btn {
+      position: absolute;
+    }
+
+    .search {
+      fill: var(--text-color);
+      left: var(--inline-padding-of-input);
+    }
+
+    svg {
+      width: 17px;
+      display: block;
+    }
+
+    .close-btn {
+      border: none;
+      right: var(--inline-padding-of-input);
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      padding: 0.1em;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--active-color);
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .input {
+      color: var(--input-text-color);
+      width: 100%;
+      margin-inline: min(2em,calc(var(--inline-padding-of-input) + var(--gap)));
+      background: none;
+      border: none;
+    }
+
+    .input:focus {
+      outline: none;
+    }
+
+    .input::placeholder {
+      color: var(--text-color)
+    }
+
+    .input:focus ~ .fancy-bg {
+      border: 1px solid var(--active-color);
+      background: var(--focus-input-bg-color);
+    }
+
+    .input:focus ~ .search {
+      fill: var(--active-color);
+    }
+
+    .input:valid ~ .close-btn {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+      -webkit-transition-delay: 9999s;
+    }
   </style>
 </head>
 <body>
-  <h1>Pesquisa no Boletim Oficial da Região Metropolitana</h1>
-  <div id="searchContainer">
-    <input type="text" id="searchText" placeholder="Digite o texto a ser buscado">
-    <button id="searchButton">Buscar e Destacar</button>
-  </div>
+  <h1>Pesquisa No Diário Oficial da Região metropolitana do rio de janeiro </h1>
+  <form class="form" id="searchForm">
+    <label for="search">
+      <input class="input" type="text" required="" placeholder="Digite o texto a ser buscado" id="search">
+      <div class="fancy-bg"></div>
+      <div class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="r-14j79pv r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-4wgw6l r-f727ji r-bnwqim r-1plcrui r-lrvibr">
+          <g>
+            <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+          </g>
+        </svg>
+      </div>
+      <button class="close-btn" type="reset">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </label>
+  </form>
 
   <div class="container">
     <div id="viewer" class="viewer"></div>
@@ -173,8 +300,8 @@
   </div>
 
   <script>
-    const searchText = document.getElementById('searchText');
-    const searchButton = document.getElementById('searchButton');
+    const searchForm = document.getElementById('searchForm');
+    const searchText = document.getElementById('search');
     const viewer = document.getElementById('viewer');
     const pdfList = document.getElementById('pdfList');
     const pdfjsLib = window['pdfjs-dist/build/pdf'];
@@ -188,6 +315,21 @@
     let currentMatchIndex = 0;
     let matchesInPdf = [];
     let pdfs = [];  // Variável global para armazenar a lista de PDFs
+
+    searchForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const termo = searchText.value.trim();
+      if (termo) {
+        pdfs = await buscarPDFs(termo);
+        if (pdfs.length > 0) {
+          updatePdfList(pdfs);
+        } else {
+          alert('Nenhum PDF encontrado para o termo fornecido.');
+        }
+      } else {
+        alert('Digite um termo para busca.');
+      }
+    });
 
     async function buscarPDFs(termo) {
       const response = await fetch('http://localhost:5000/encontrar-pdfs', {
@@ -318,6 +460,7 @@
       });
     }
 
+
     // Atualizar a lista de PDFs exibida
     function updatePdfList(pdfs) {
       pdfList.innerHTML = '';
@@ -378,19 +521,7 @@
     });
 
     // Modifique a função de busca para armazenar a lista de PDFs na variável global
-    searchButton.addEventListener('click', async () => {
-      const termo = searchText.value.trim();
-      if (termo) {
-        pdfs = await buscarPDFs(termo);
-        if (pdfs.length > 0) {
-          updatePdfList(pdfs);
-        } else {
-          alert('Nenhum PDF encontrado para o termo fornecido.');
-        }
-      } else {
-        alert('Digite um termo para busca.');
-      }
-    });
+
   </script>
 </body>
 </html>
