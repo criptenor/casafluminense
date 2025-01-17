@@ -58,6 +58,7 @@ def encontrar_pdfs_correspondentes(termo_busca):
                         if os.path.isfile(caminho_pdf):
                             timestamp, data_formatada = extrair_data(nome_pdf)
                             pdfs_correspondentes.append({
+                                "cidade": "Duque de Caxias",
                                 "nome_pdf": nome_pdf,
                                 "quantidade_correspondencias": count,
                                 "timestamp": timestamp,
