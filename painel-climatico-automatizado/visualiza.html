@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pré-visualização de PDF</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    #searchContainer {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      width: 300px;
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px;
+    }
+    .container {
+      display: flex;
+      width: 80%;
+      justify-content: space-between;
+      height: 70%;
+    }
+    .viewer {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      border: 1px solid #ccc;
+      position: relative;
+    }
+    .pdf-list {
+      width: 28%;
+      height: 100%;
+      padding: 10px;
+      overflow-y: auto;
+      list-style-type: none;
+      border: 1px solid #ccc;
+      margin-left: 20px;
+    }
+    .pdf-list li {
+      cursor: pointer;
+      padding: 8px;
+      background-color: #f4f4f4;
+      margin: 5px 0;
+      border-radius: 4px;
+    }
+    .pdf-list li:hover {
+      background-color: #ddd;
+    }
+    canvas {
+      display: block;
+      margin: 10px auto;
+    }
+    .navigation {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .navigation button {
+      margin: 0 5px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pré-visualização de PDF</h1>
+  <div id="searchContainer">
+    <input type="text" id="searchText" placeholder="Digite o texto a ser buscado">
+    <button id="searchButton">Buscar e Destacar</button>
+  </div>
+
+  <div class="container">
+    <div id="viewer" class="viewer"></div>
+    <ul id="pdfList" class="pdf-list"></ul>
+  </div>
+
+  <div class="navigation">
+    <button id="prevButton" disabled>Anterior</button>
+    <button id="nextButton" disabled>Próxima</button>
+  </div>
+
+  <script>
+    const searchText = document.getElementById('searchText');
+    const searchButton = document.getElementById('searchButton');
+    const viewer = document.getElementById('viewer');
+    const pdfList = document.getElementById('pdfList');
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+
+    let currentMatchIndex = 0;
+    let matchesInPdf = [];
+
+    async function buscarPDFs(termo) {
+      const response = await fetch('http://localhost:5000/encontrar-pdfs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ termo: termo })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.pdfs;
+      } else {
+        console.error("Erro ao buscar PDFs:", response.statusText);
+        return [];
+      }
+    }
+
+    async function renderPDF(pdfUrl, termo) {
+      const pdfDoc_ = await pdfjsLib.getDocument(pdfUrl).promise;
+      const pdfContainer = document.createElement('div');
+      pdfContainer.className = 'viewer';
+      viewer.innerHTML = '';
+      viewer.appendChild(pdfContainer);
+
+      currentMatchIndex = 0;
+      matchesInPdf = [];
+
+      for (let pageNum = 1; pageNum <= pdfDoc_.numPages; pageNum++) {
+        const canvas = document.createElement('canvas');
+        canvas.id = `page-${pageNum}`;
+        pdfContainer.appendChild(canvas);
+
+        const page = await pdfDoc_.getPage(pageNum);
+        const viewport = page.getViewport({ scale: 1.5 });
+        const context = canvas.getContext('2d');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height / 2;  // Exibe apenas metade superior
+
+        const renderContext = {
+          canvasContext: context,
+          viewport: viewport
+        };
+
+        await page.render(renderContext).promise;
+
+        if (termo) {
+          const pageMatches = await highlightText(page, termo, context, viewport);
+          if (pageMatches.length > 0) {
+            matchesInPdf.push({ pageNum, matches: pageMatches });
+          }
+        }
+      }
+
+      if (matchesInPdf.length > 0) {
+        navigateToMatch();
+        updateNavigationButtons();
+      } else {
+        alert('Nenhuma correspondência encontrada no PDF.');
+      }
+
+      prevButton.addEventListener('click', () => {
+        if (currentMatchIndex > 0) {
+          currentMatchIndex--;
+          navigateToMatch();
+        }
+      });
+
+      nextButton.addEventListener('click', () => {
+        if (currentMatchIndex < matchesInPdf.length - 1) {
+          currentMatchIndex++;
+          navigateToMatch();
+        }
+      });
+    }
+
+    async function highlightText(page, searchTerm, context, viewport) {
+      const textContent = await page.getTextContent();
+      const regex = new RegExp(searchTerm, 'gi');
+      let pageMatches = [];
+
+      textContent.items.forEach((item) => {
+        if (regex.test(item.str)) {
+          const [x, y, width, height] = calculateTextBounds(item, viewport);
+          context.fillStyle = 'rgba(255, 255, 0, 0.5)';
+          context.fillRect(x, y - height, width, height);
+          pageMatches.push({ x, y });
+        }
+      });
+
+      return pageMatches;
+    }
+
+    function calculateTextBounds(item, viewport) {
+      const transform = pdfjsLib.Util.transform(viewport.transform, item.transform);
+      const x = transform[4];
+      const y = transform[5];
+      const width = item.width * viewport.scale;
+      const height = item.height * viewport.scale;
+      return [x, y, width, height];
+    }
+
+    function updateNavigationButtons() {
+      prevButton.disabled = currentMatchIndex === 0;
+      nextButton.disabled = currentMatchIndex === matchesInPdf.length - 1;
+    }
+
+    function navigateToMatch() {
+      const match = matchesInPdf[currentMatchIndex];
+      const canvas = document.getElementById(`page-${match.pageNum}`);
+      if (canvas) {
+        canvas.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    searchButton.addEventListener('click', async () => {
+      const termo = searchText.value.trim();
+      if (termo) {
+        const pdfs = await buscarPDFs(termo);
+        pdfList.innerHTML = '';
+        if (pdfs.length > 0) {
+          pdfs.forEach(pdf => {
+            const li = document.createElement('li');
+            li.textContent = pdf;
+            li.addEventListener('click', async () => {
+              const pdfUrl = `http://localhost:5000/boletim_dc/${pdf}`;
+              await renderPDF(pdfUrl, termo);
+            });
+            pdfList.appendChild(li);
+          });
+        } else {
+          alert('Nenhum PDF encontrado para o termo fornecido.');
+        }
+      } else {
+        alert('Digite um termo para busca.');
+      }
+    });
+  </script>
+</body>
+</html>
