@@ -41,6 +41,9 @@ async function renderPDF(pdfUrl, termo) {
     }
   }
 
+  // Scroll to top to ensure the viewer does not scroll automatically to the bottom
+  viewer.scrollTop = 0;
+
   if (matchesInPdf.length > 0) {
     navigateToMatch();
     updateNavigationButtons();

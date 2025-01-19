@@ -1,0 +1,60 @@
+#searchContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .container {
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+    height: 70%;
+  }
+  
+  .viewer {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: relative;
+    border: 1px solid #1b9bee;
+    border-radius: 8px;
+  }
+  
+  .pdf-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    border: 1px solid #1b9bee;
+    border-radius: 8px;
+    margin: 20px;
+    padding: 10px;
+  }
+  
+  .sortButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .pdf-list {
+    height: 100%;
+    padding: 10px;
+    overflow-y: auto;
+    list-style-type: none;
+    
+  }
+  
+  .navigation {
+    display: flex;
+    justify-content: flex-start;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .navigation button {
+    margin-right: 10px;
+  }
